@@ -1,6 +1,11 @@
+---
+- hosts:  mac
+  gather_facts: yes
+  remote_user: desal
+  become: no
 
-
-- name: brew upgrading all
-  community.general.homebrew:
-    update_homebrew: true
-    upgrade_all: true
+  tasks:
+    - name: brew upgrading all
+      community.general.homebrew:
+        update_homebrew: true
+        upgrade_all: true
