@@ -1,5 +1,5 @@
 ---
-- hosts:  linux-apt-root
+- hosts:  debian
   gather_facts: yes
   remote_user: root
   become: no
