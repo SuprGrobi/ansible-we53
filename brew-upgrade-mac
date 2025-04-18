@@ -1,7 +1,7 @@
 ---
 - hosts:  mac
   gather_facts: yes
-  remote_user: desal
+  remote_user: soeren
   become: no
 
   tasks:
