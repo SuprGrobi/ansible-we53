@@ -1,5 +1,5 @@
 ---
-- hosts:  debian:ubuntu
+- hosts:  debian
   gather_facts: yes
   remote_user: root
   become: no
