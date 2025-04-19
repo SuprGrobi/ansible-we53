@@ -1,0 +1,14 @@
+---
+- hosts:  debian
+  gather_facts: yes
+  remote_user: root
+  become: no
+
+  tasks:
+    - name: add non-free repositories
+      ansible.builtin.apt_repository:
+        repo: deb http://ftp.us.debian.org/debian bookworm-updates main contrib non-free non-free-firmware bookworm-backports
+        state: present
+    - name: remove nag-screen subsctiption
+      command: echo "DPkg::Post-Invoke { \"dpkg -V proxmox-widget-toolkit | grep -q '/proxmoxlib\.js$'; if [ \$? -eq 1 ]; then { echo 'Removing subscription nag from UI...'; sed -i '/.*data\.status.*{/{s/\!//;s/active/NoMoreNagging/}' /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js; }; fi\"; };" >/etc/apt/apt.conf.d/no-nag-script
+      
