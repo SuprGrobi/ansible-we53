@@ -2,7 +2,7 @@
 - hosts:  mac
   gather_facts: yes
   remote_user: soeren
-  become: no
+  become: yes
 
   tasks:
     - name: brew upgrading all
