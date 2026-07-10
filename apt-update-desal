@@ -3,7 +3,7 @@
   gather_facts: yes
   remote_user: desal
   become: true
-  become-method: su -K
+  become_method: su -K
 
   tasks:
     - name: Perform a dist-upgrade.
