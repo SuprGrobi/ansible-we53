@@ -2,7 +2,7 @@
 - hosts:  ubuntu
   gather_facts: yes
   remote_user: desal
-  become: yes
+  become: true
 
   tasks:
     - name: Perform a dist-upgrade.
