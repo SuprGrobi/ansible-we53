@@ -1,0 +1,41 @@
+---
+- name: Update and upgrade Alpine Linux packages
+  hosts: alpine
+  become: true
+  remote_user: docker-user
+  gather_facts: false
+  tasks:
+
+    - name: Update repository cache and upgrade all packages
+      community.general.apk:
+        available: true
+        upgrade: true
+        update_cache: true
+      register: apk_result
+
+    - name: Clean up obsolete or leftover packages
+      community.general.apk:
+        clean: true
+      when: apk_result.changed
+
+    - name: Print upgrade results
+      ansible.builtin.debug:
+        var: apk_result
+
+    - name: Check if the Linux kernel package was updated
+      ansible.builtin.set_fact:
+        kernel_updated: "{{ apk_upgrade_result.packages | select('match', '^linux-.*') | list | length > 0 }}"
+      when: apk_upgrade_result.packages is defined
+
+    - name: Print kernel update status
+      ansible.builtin.debug:
+        msg: "Kernel update detected: {{ kernel_updated | default(false) }}. Proceeding with reboot logic."
+
+    - name: Reboot the Alpine server if the kernel was updated
+      ansible.builtin.reboot:
+        msg: "Rebooting via Ansible due to a kernel upgrade"
+        connect_timeout: 5
+        reboot_timeout: 300
+        pre_reboot_delay: 2
+        test_command: uname -a
+      when: kernel_updated | default(false)
