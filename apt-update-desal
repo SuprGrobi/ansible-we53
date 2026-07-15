@@ -3,8 +3,7 @@
   gather_facts: yes
   remote_user: desal
   become: true
-  vars:
-    ansible_become_exe: /usr/bin/sudo.ws
+  become_exe: /usr/bin/sudo.ws
 
   tasks:
     - name: Perform a dist-upgrade.
