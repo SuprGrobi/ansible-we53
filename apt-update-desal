@@ -1,6 +1,5 @@
 ---
 - hosts:  ubuntu
-  gather_facts: yes
   remote_user: desal
   become: true
   become_exe: /usr/bin/sudo.ws
