@@ -6,14 +6,10 @@
   tasks:
     - name: Perform a dist-upgrade.
       ansible.builtin.apt:
-        update_cache: yes
+        update_cache: true
         upgrade: dist
-    
-    - name: Remove dependencies that are no longer required.
-      ansible.builtin.apt:
-        autoremove: yes
-        autoclean: yes
-        clean: yes
+        autoremove: true 
+        purge: true 
 
     - name: Check if a reboot is required.
       ansible.builtin.stat:
